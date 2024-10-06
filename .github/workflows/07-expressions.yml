@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Conditionally print start-up data if debug is true
-      - name: [debug] Print start-up data
-        if: ${{ github.event.inputs.debug == true }}
+      - name: "[debug] Print start-up data"
+        if: ${{ github.event.inputs.debug == 'true' }}
         run: |
           echo "Triggered by: ${{ github.event_name }}"
           echo "Branch: ${{ github.ref }}"
@@ -22,15 +22,12 @@ jobs:
           echo "Runner OS: ${{ runner.os }}"
       
       # Step 2: Conditionally print if triggered from main branch and debug is true
-      - name: [debug] Print when triggered from main
-        if: ${{ github.event.inputs.debug == true && github.ref == 'refs/heads/main' }}
+      - name: "[debug] Print when triggered from main"
+        if: ${{ github.event.inputs.debug == 'true' && startsWith(github.ref, 'refs/heads/main') }}
         run: echo "I was triggered from main"
 
       # Step 3: Greeting step that runs always
-      - name: Greeting
+      - name: "Greeting"
         run: echo "Hello, world"
 
-# Run-name dynamically set based on the debug input
-run-name: 07 - Using Expressions | DEBUG - ${{ github.event.inputs.debug && 'ON' || 'OFF' }}
 
-          echo "Runner OS: ${{ runner.os }}"
